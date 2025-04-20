@@ -1,6 +1,6 @@
 # README.md
 
-# Monero CPU Miner
+# Monero CPU Miner(NOT DONE AND/OR WORKING!!!!!)
 
 Mines Monero using RandomX on your CPU.
 
