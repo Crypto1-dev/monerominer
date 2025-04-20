@@ -1,37 +1,47 @@
 # README.md
+
 # Monero CPU Miner
+
 Mines Monero using RandomX on your CPU.
 
 ## Prerequisites
+
 - macOS (MacBook Pro)
 - Homebrew: `brew install git cmake`
 - Monero wallet address (from getmonero.org or exchange)
 - GCC/Clang: `xcode-select --install`
 
 ## Setup
+
 1. Create folder: `mkdir ~/monero-miner && cd ~/monero-miner`
+
 2. Save `monero_miner.py` and this README.
+
 3. Compile RandomX hasher:
+
    ```bash
    git clone https://github.com/tevador/RandomX.git
    cd RandomX
    ```
-   Save `randomx_hasher.c` (see below), then:
+
+   Save `randomx_hasher.c` (below) in `RandomX/`, then:
+
    ```bash
-   mkdir build && cd build
-   cmake ..
-   make
-   mv randomx-hasher ../../randomx_hasher
-   cd ../..
+   gcc -O2 -o randomx_hasher randomx_hasher.c src/*.c -Iinclude -march=armv8-a+crypto
+   mv randomx_hasher ../
+   cd ..
    rm -rf RandomX
    chmod +x randomx_hasher
    ```
+
 4. Run:
+
    ```bash
    python3 monero_miner.py
    ```
 
 ## randomx_hasher.c
+
 ```c
 #include <stdio.h>
 #include <string.h>
@@ -68,20 +78,23 @@ int main(int argc, char *argv[]) {
 ```
 
 ## Usage
-- Pool URL: `xmr-eu1.nanopool.org`
-- Port: `10300`
-- Wallet address: ~95 chars, starts with 4/8
-- Worker name: e.g., `worker1`
+
+- Pool URL: `gulf.moneroocean.stream`
+- Port: `10128`
+- Wallet address: \~95 chars, starts with 4/8
+- Worker name: e.g., `mac`
 - Password: Press Enter for `x`
-- Keepalive: `yes` or `no`
+- Keepalive: `yes`
 - Stop: Ctrl+C
 
 ## Notes
-- Hashrate: ~100-1000 H/s (M1/M2 CPU).
-- Check shares on pool dashboard (e.g., Nanopool).
+
+- Hashrate: \~100-1000 H/s (M1/M2 CPU).
+- Check shares on pool dashboard (e.g., MoneroOcean).
 - XMRig is faster for production.
 
 ## Troubleshooting
-- **randomx_hasher missing**: Compile it.
-- **Connection issues**: Try `pool.supportxmr.com:3333`.
+
+- **randomx_hasher missing**: Compile it (see above).
+- **Connection issues**: Try `xmr-eu1.nanopool.org:10300`.
 - **Low hashrate**: Check CPU usage (`top`).
