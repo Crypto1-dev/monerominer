@@ -1,0 +1,2 @@
+# monerominer
+monero mining script
